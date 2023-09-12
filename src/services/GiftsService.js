@@ -19,7 +19,7 @@ class GiftsService {
     async createGift(newGift) {
         const res = await api.post('api/gifts', newGift)
         const appGift = new Gift(res.data)
-        AppState.gifts.push(appGift)
+        AppState.gifts.splice(0, 0, appGift)
     }
 }
 
