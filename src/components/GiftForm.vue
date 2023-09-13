@@ -6,12 +6,13 @@
             <label for="giftUrl">Search for Giphy Gif</label>
             <input v-model="searchGif" name="searchGif" type="text">
             <section class="row">
-                <div v-for="gif in gifs" :key="gif.id" class="col-3 card">
+                <div @click="newGift.url = gif.url" v-for="gif in   gifs  " :key="gif.id"
+                    class="col-3 card img-fluid text-center g-2" :class="{ 'bg-success': newGift.url == gif.url }">
                     <img :src="gif.url" />
                 </div>
             </section>
-            <button v-if="searchGif" class="btn btn-success">Search for Gif</button>
-            <button v-if="newGift.url" class="btn btn-success">Post Gift</button>
+            <button v-if="searchGif" class="btn btn-success my-2">Search for Gif</button>
+            <button @click="createGift" v-if="newGift.url" class="btn btn-success">Post Gift</button>
         </div>
     </form>
 </template>
@@ -32,9 +33,12 @@ export default {
             gifs: computed(() => AppState.gifs),
             newGift,
             searchGif,
-            async createGift() {
+            async createGift(url) {
                 try {
-                    await giftsService.createGift(this.newGift)
+                    const create = await Pop.confirm('Do you want to submit your gif?')
+                    if (create) {
+                        await giftsService.createGift(this.newGift)
+                    }
                 } catch (error) {
                     Pop.error(error)
                 }
@@ -53,4 +57,9 @@ export default {
 </script>
 
 
-<style></style>
+<style scoped lang="scss">
+img {
+    height: 20vh;
+    width: fit-content;
+}
+</style>

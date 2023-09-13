@@ -13,7 +13,7 @@ export const giphyApi = Axios.create({
   params: {
     rating: 'pg',
     api_key: '0R4ABL9djZ8CRkZXxyTMHv2YLbN4JPw4',
-    limit: 10,
+    limit: 8,
   }
 });
 
