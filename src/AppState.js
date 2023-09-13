@@ -7,5 +7,8 @@ export const AppState = reactive({
   account: {},
 
   /** @type {Gift{} || null} */
-  gifts: null
+  gifts: null,
+
+  /** @type {Gif{} || null} */
+  gifs: null
 })

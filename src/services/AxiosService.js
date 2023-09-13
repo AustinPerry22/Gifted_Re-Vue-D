@@ -7,6 +7,16 @@ export const api = Axios.create({
   timeout: 8000
 })
 
+export const giphyApi = Axios.create({
+  baseURL: 'https://api.giphy.com/v1/gifs',
+  timeout: 8000,
+  params: {
+    rating: 'pg',
+    api_key: '0R4ABL9djZ8CRkZXxyTMHv2YLbN4JPw4',
+    limit: 10,
+  }
+});
+
 api.interceptors.request.use(config => config, handleAxiosError)
 api.interceptors.response.use(response => response, handleAxiosError)
 
@@ -18,9 +28,9 @@ function handleAxiosError(error) {
   } else if (error.request) {
     // The request was made but no response was received
     logger.warn('[📡 AXIOS_ERROR_NO_RESPONSE]', error.request)
-  }else {
+  } else {
     // Something happened in setting up the request that triggered an Error
-    logger.warn('[📡 AXIOS_ERROR_INVALID_REQUEST]',error.message)
+    logger.warn('[📡 AXIOS_ERROR_INVALID_REQUEST]', error.message)
   }
   return Promise.reject(error)
 }
